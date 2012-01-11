@@ -115,11 +115,11 @@ end
 
 amigos = groupes_parlementaires.select{|group, members| group =~/^Groupe d'amitié/}
 studies = groupes_parlementaires.select{|group, members| group =~/^Groupe d'études france-/}
-File.open("amigos.txt", "w") do |file
+File.open("amigos.txt", "w") do |file|
   file.write "id,members,category,amigos\n"
   index = 0
   amigos.each_pair do |key, value|
-    file.write "#{index}, #{key.gsub("Groupe d'amitié ", "")}, #{value.size}, 1\n"
+    file.write "#{index}, #{key.gsub("Groupe d'amitié france-", "")}, #{value.size}, 1\n"
     index += 1
   end
   studies.each_pair do |key, value|
