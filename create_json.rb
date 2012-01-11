@@ -138,3 +138,29 @@ File.open("etudes.txt", "w") do |file|
   end
 end
 
+File.open("output.js", "w") do |file|
+  file.write "var json={"
+  # - etudes
+  #   - group1
+  #     -member1
+  #     -member2
+  #   - group2
+  #     -member1
+  #     -member2
+  # - relations
+  #   - amités
+  #     -pays1
+  #       -members1
+  #       -member2
+  #     -pays2
+  #       -member1
+  #       -member2
+  #   - etude
+  #     -pays1
+  #       -member1
+  #       -member2
+  #     -pays2
+  #       -member1
+  #       -member2
+  file.write "'id': 'antisec', 'name': '#MilitaryMeltdownMonday', 'data': {}};"
+end
