@@ -1,162 +1,172 @@
-israël, 18
-arménie, 12
-arabie saoudite, 7
-brésil, 17
-côte d'ivoire, 14
-bretagne et irlande du nord, 16
-allemagne, 15
-espagne, 17
-mexique, 15
-canada, 16
-tunisie, 16
-danemark, 10
-el salvador, 7
-suède, 7
-mali, 11
-vietnam, 14
-cameroun, 10
-pologne, 15
-guinée équatoriale, 4
-monaco, 11
-mauritanie, 6
-tchad, 6
-herzégovine, 7
-cuba, 15
-afghanistan, 7
-emirats arabes unis, 10
-thaïlande, 8
-slovaquie, 7
-suisse, 9
-irlande, 15
-finlande, 8
-islande, 8
-slovénie, 6
-bolivie, 12
-chypre, 10
-surinam, 3
-pérou, 16
-syrie, 8
-irak, 5
-iran, 7
-comores, 7
-togo, 7
-italie, 16
-unis d'amérique, 18
-argentine, 10
-vanuatu, 3
-grèce, 16
-egypte, 17
-inde, 18
-sénégal, 13
-venezuela, 6
-congo , 11
-autriche, 9
-centrafrique, 6
-gabon, 7
-cambodge, 10
-niger, 9
-maurice, 13
-jamaïque, 4
-madagascar, 17
-chine, 14
-québec, 17
-laos, 11
-australie, 12
-roumanie, 12
-portugal, 15
-bas, 9
-koweit, 11
-maroc, 18
-russie, 18
-algérie, 15
-japon, 13
-bénin, 6
-costa rica, 5
-ethiopie, 8
-panama, 5
-chili, 14
-zélande, 15
-népal, 5
-soudan, 3
-malaisie, 8
-oman, 6
-liban, 15
-norvège, 8
-mozambique, 6
-ouganda, 3
-estonie, 6
-hongrie, 7
-tchèque , 8
-serbie, 10
-azerbaïdjan, 6
-macédoine, 7
-burkina faso, 11
-croatie, 9
-philippines, 4
-yemen, 5
-singapour, 4
-malte, 11
-turquie, 15
-géorgie, 6
-corée du sud, 6
-honduras, 6
-paraguay, 8
-qatar, 12
-bulgarie, 10
-ouzbékistan, 12
-lituanie, 5
-guinée, 2
-luxembourg, 1
-jordanie, 9
-haïti, 6
-kenya, 6
-albanie, 5
-djibouti, 4
-sri lanka, 3
-kazakhstan, 7
-ukraine, 7
-afrique du sud, 13
-seychelles, 1
-nigeria, 4
-rwanda, 1
-sierra leone, 1
-maldives, 1
-indonésie, 7
-burundi, 3
-tadjikistan, 7
-equateur, 6
-guinée, 3
-mongolie, 8
-bissau, 1
-dominicaine , 9
-brunei, 2
-bahrein, 1
-andorre, 8
-uruguay, 9
-colombie, 8
-angola, 3
-tanzanie, 5
-moldavie, 5
-nicaragua, 2
-guatemala, 6
-kirghizistan, 6
-pakistan, 5
-lettonie, 5
-erythrée, 4
-botswana, 1
-namibie, 8
-bélarus, 5
-belgique, 11
-monténégro, 3
-turkménistan, 4
-vert, 7
-bangladesh, 4
-gambie, 3
-são tomé et príncipe, 1
-liberia, 1
-ghana, 1
-malawi, 1
-zimbabwe, 1
-guyana, 1
-timor oriental, 1
-bhoutan, 1
+id,members,category,amigos
+0, israël, 18, 1
+1, arménie, 12, 1
+2, arabie saoudite, 7, 1
+3, brésil, 17, 1
+4, côte d'ivoire, 14, 1
+5, grande-bretagne et irlande du nord, 16, 1
+6, allemagne, 15, 1
+7, espagne, 17, 1
+8, mexique, 15, 1
+9, canada, 16, 1
+10, tunisie, 16, 1
+11, danemark, 10, 1
+12, el salvador, 7, 1
+13, suède, 7, 1
+14, mali, 11, 1
+15, vietnam, 14, 1
+16, cameroun, 10, 1
+17, pologne, 15, 1
+18, guinée équatoriale, 4, 1
+19, monaco, 11, 1
+20, mauritanie, 6, 1
+21, tchad, 6, 1
+22, bosnie-herzégovine, 7, 1
+23, cuba, 15, 1
+24, afghanistan, 7, 1
+25, emirats arabes unis, 10, 1
+26, thaïlande, 8, 1
+27, slovaquie, 7, 1
+28, suisse, 9, 1
+29, irlande, 15, 1
+30, finlande, 8, 1
+31, islande, 8, 1
+32, slovénie, 6, 1
+33, bolivie, 12, 1
+34, chypre, 10, 1
+35, surinam, 3, 1
+36, pérou, 16, 1
+37, syrie, 8, 1
+38, irak, 5, 1
+39, iran, 7, 1
+40, comores, 7, 1
+41, togo, 7, 1
+42, italie, 16, 1
+43, etats-unis d'amérique, 18, 1
+44, argentine, 10, 1
+45, vanuatu, 3, 1
+46, grèce, 16, 1
+47, egypte, 17, 1
+48, inde, 18, 1
+49, sénégal, 13, 1
+50, venezuela, 6, 1
+51, congo , 11, 1
+52, autriche, 9, 1
+53, centrafrique, 6, 1
+54, gabon, 7, 1
+55, cambodge, 10, 1
+56, niger, 9, 1
+57, maurice, 13, 1
+58, jamaïque, 4, 1
+59, madagascar, 17, 1
+60, chine, 14, 1
+61, québec, 17, 1
+62, laos, 11, 1
+63, australie, 12, 1
+64, roumanie, 12, 1
+65, portugal, 15, 1
+66, pays-bas, 9, 1
+67, koweit, 11, 1
+68, maroc, 18, 1
+69, russie, 18, 1
+70, algérie, 15, 1
+71, japon, 13, 1
+72, bénin, 6, 1
+73, costa rica, 5, 1
+74, ethiopie, 8, 1
+75, panama, 5, 1
+76, chili, 14, 1
+77, nouvelle-zélande, 15, 1
+78, népal, 5, 1
+79, soudan, 3, 1
+80, malaisie, 8, 1
+81, oman, 6, 1
+82, liban, 15, 1
+83, norvège, 8, 1
+84, mozambique, 6, 1
+85, ouganda, 3, 1
+86, estonie, 6, 1
+87, hongrie, 7, 1
+88, tchèque , 8, 1
+89, serbie, 10, 1
+90, azerbaïdjan, 6, 1
+91, macédoine, 7, 1
+92, burkina faso, 11, 1
+93, croatie, 9, 1
+94, philippines, 4, 1
+95, yemen, 5, 1
+96, singapour, 4, 1
+97, malte, 11, 1
+98, turquie, 15, 1
+99, géorgie, 6, 1
+100, corée du sud, 6, 1
+101, honduras, 6, 1
+102, paraguay, 8, 1
+103, qatar, 12, 1
+104, bulgarie, 10, 1
+105, ouzbékistan, 12, 1
+106, lituanie, 5, 1
+107, papouasie nouvelle-guinée, 2, 1
+108, luxembourg, 1, 1
+109, jordanie, 9, 1
+110, haïti, 6, 1
+111, kenya, 6, 1
+112, albanie, 5, 1
+113, djibouti, 4, 1
+114, sri lanka, 3, 1
+115, kazakhstan, 7, 1
+116, ukraine, 7, 1
+117, afrique du sud, 13, 1
+118, seychelles, 1, 1
+119, nigeria, 4, 1
+120, rwanda, 1, 1
+121, sierra leone, 1, 1
+122, maldives, 1, 1
+123, indonésie, 7, 1
+124, burundi, 3, 1
+125, tadjikistan, 7, 1
+126, equateur, 6, 1
+127, guinée, 3, 1
+128, mongolie, 8, 1
+129, guinée-bissau, 1, 1
+130, dominicaine , 9, 1
+131, brunei, 2, 1
+132, bahrein, 1, 1
+133, andorre, 8, 1
+134, uruguay, 9, 1
+135, colombie, 8, 1
+136, angola, 3, 1
+137, tanzanie, 5, 1
+138, moldavie, 5, 1
+139, nicaragua, 2, 1
+140, guatemala, 6, 1
+141, kirghizistan, 6, 1
+142, pakistan, 5, 1
+143, lettonie, 5, 1
+144, erythrée, 4, 1
+145, botswana, 1, 1
+146, namibie, 8, 1
+147, bélarus, 5, 1
+148, belgique, 11, 1
+149, monténégro, 3, 1
+150, turkménistan, 4, 1
+151, cap-vert, 7, 1
+152, bangladesh, 4, 1
+153, gambie, 3, 1
+154, são tomé et príncipe, 1, 1
+155, liberia, 1, 1
+156, ghana, 1, 1
+157, malawi, 1, 1
+158, zimbabwe, 1, 1
+159, guyana, 1, 1
+160, timor oriental, 1, 1
+161, bhoutan, 1, 1
+162, kosovo, 9, 0
+163, vatican, 13, 0
+164, taïwan, 9, 0
+165, libye, 7, 0
+166, lesotho, 1, 0
+167, corée du nord, 7, 0
+168, birmanie, 3, 0
+169, palestine, 9, 0
+170, fidji, 1, 0
