@@ -1,14 +1,22 @@
 require 'rubygems'
 require 'net/http'
 require 'json'
+require 'nokogiri'
+require 'open-uri'
+
+$cache = {}
 
 def api_json(json_url)
-  url = URI.parse(json_url)
-  req = Net::HTTP::Get.new(url.path)
-  res = Net::HTTP.start(url.host, url.port) {|http|
-    http.request(req)
-  }
-  return JSON.parse(res.body)
+  #unless result = $cache[json_url]
+    url = URI.parse(json_url)
+    req = Net::HTTP::Get.new(url.path)
+    res = Net::HTTP.start(url.host, url.port) {|http|
+      http.request(req)
+    }
+    result =  JSON.parse(res.body)
+    $cache[json_url] = result
+  #end
+  return result
 end
 
 groups = {}
@@ -56,6 +64,68 @@ groupes_parlementaires = {}
   #    end
   #  end
   #end
+
+activities = {
+  :cumul => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  :non => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+}
+
+depute_list = api_json("http://www.nosdeputes.fr/deputes/json")
+noncumul = false
+depute_cumul = 0
+depute_non_cumul = 0
+depute_list["deputes"].each do |depute_json|
+
+  depute = depute_json["depute"]
+  depute_api = api_json(depute["api_url"])["depute"]
+
+  if depute_api["mandat_fin"].nil?
+
+    if depute_api["autres_mandats"].kind_of?(String)
+      p depute["api_url"]
+      noncumul = true
+      depute_non_cumul += 1
+    else
+      noncumul = false 
+      depute_cumul += 1
+    end
+
+    p "activities for #{depute_api["slug"]}"
+    url = "http://www.nosdeputes.fr/" +  depute_api["slug"]
+    unless doc = $cache[url]
+      doc = Nokogiri::HTML(open(url))
+      $cache[url] = doc
+    end
+    index = 0
+    doc.css(".barre_activite a").each do |activite|
+      activite["title"].scan(/^(\d+)/)
+      num = $1.to_i
+
+      if noncumul
+        activities[:non][index] += num
+      else
+        activities[:cumul][index] += num
+      end
+      index += 1
+    end
+  end
+end
+
+p depute_cumul + depute_non_cumul
+p depute_cumul
+p depute_non_cumul
+p activities
+p activities[:cumul].map{|cumul| cumul / depute_cumul}
+p activities[:non].map{|cumul| cumul / depute_non_cumul}
+
+
+depute_list["deputes"].each do |depute_json|
+
+  depute = depute_json["depute"]
+  depute_api = api_json(depute["api_url"])["depute"]
+
+  deputes += 1 if depute_api["mandat_fin"].nil?
+end
 
 
 depute_list = api_json("http://www.nosdeputes.fr/deputes/json")
@@ -139,7 +209,7 @@ File.open("etudes.txt", "w") do |file|
 end
 
 File.open("output.js", "w") do |file|
-  file.write "var json={"
+  file.write "var json=[{ childre:["
   # - etudes
   #   - group1
   #     -member1
@@ -162,5 +232,6 @@ File.open("output.js", "w") do |file|
   #     -pays2
   #       -member1
   #       -member2
+    
   file.write "'id': 'antisec', 'name': '#MilitaryMeltdownMonday', 'data': {}};"
 end
