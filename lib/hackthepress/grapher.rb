@@ -9,7 +9,7 @@ class Grapher
     cumuls = opts[:cumuls]
     legend = opts[:legend]
     Gchart.bar(:title => "Semaines de présence",
-               :format => 'file', :filename => "img/#{filename}",
+               :format => 'file', :filename => filename,
                :data => [
                  [cumuls[0].sum(attribute) / cumuls[0].count],
                  [cumuls[1].sum(attribute) / cumuls[1].count],
@@ -42,69 +42,63 @@ class Grapher
     ]
 
     generate_cumul_graph :title => "Semaines de présence",
-                         :filename => "cumul_weeks.png",
+                         :filename => "img/cumul_weeks.png",
                          :attribute => :activity_weeks,
                          :cumuls => cumuls,
                          :legend => "semaines"
 
     generate_cumul_graph :title => "Présences en commission",
-                         :filename => "cumul_commission_presence.png",
-                         :attribute => :commisssion_presence,
+                         :filename => "img/cumul_commission_presence.png",
+                         :attribute => :commission_presence,
                          :cumuls => cumuls,
                          :legend => "présences"
 
     generate_cumul_graph :title => "Interventions en commission",
-                         :filename => "cumul_commission_intervention.png",
+                         :filename => "img/cumul_commission_intervention.png",
                          :attribute => :commission_intervention,
                          :cumuls => cumuls,
                          :legend => "interventions"
 
     generate_cumul_graph :title => "Intervention en hémicycle",
-                         :filename => "cumul_hemicycle_intervention.png",
+                         :filename => "img/cumul_hemicycle_intervention.png",
                          :attribute => :hemicycle_intervention,
                          :cumuls => cumuls,
                          :legend => "interventions"
 
     generate_cumul_graph :title => "Amendements signés",
-                         :filename => "cumul_amendements.png",
+                         :filename => "img/cumul_amendements.png",
                          :attribute => :signed_amendment,
                          :cumuls => cumuls,
                          :legend => "semaines"
 
     generate_cumul_graph :title => "Rapports écrits",
-                         :filename => "cumul_rapports.png",
+                         :filename => "img/cumul_rapports.png",
                          :attribute => :written_report,
                          :cumuls => cumuls,
                          :legend => "rapports"
 
     generate_cumul_graph :title => "Propositions de loi écrites",
-                         :filename => "cumul_propsition_loi_ecrite.png",
+                         :filename => "img/cumul_propsition_loi_ecrite.png",
                          :attribute => :written_law_proposal,
                          :cumuls => cumuls,
                          :legend => "propositions"
 
     generate_cumul_graph :title => "Propositions de loi signées",
-                         :filename => "cumul_proposition_loi_signe.png",
+                         :filename => "img/cumul_proposition_loi_signe.png",
                          :attribute => :signed_law_proposal,
                          :cumuls => cumuls,
                          :legend => "propositions"
 
     generate_cumul_graph :title => "Questions écrites",
-                         :filename => "cumul_question_ecrite.png",
+                         :filename => "img/cumul_question_ecrite.png",
                          :attribute => :written_question,
                          :cumuls => cumuls,
                          :legend => "questions"
 
     generate_cumul_graph :title => "Questions orales",
-                         :filename => "cumul_question_orale.png",
+                         :filename => "img/cumul_question_orale.png",
                          :attribute => :oral_question,
                          :cumuls => cumuls,
                          :legend => "questions"
-  end
-
-  def median(x)
-    sorted = x.sort
-    mid = x.size/2
-    sorted[mid]
   end
 end
