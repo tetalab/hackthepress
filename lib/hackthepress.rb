@@ -27,9 +27,7 @@ class HackThePress
   end
 
   def graph(type)
-
     grapher = Grapher.new
-
     case type
     when "cumul"
       deputies = Deputy.all
