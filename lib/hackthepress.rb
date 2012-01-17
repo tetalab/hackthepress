@@ -30,8 +30,7 @@ class HackThePress
     grapher = Grapher.new
     case type
     when "cumul"
-      deputies = Deputy.all
-      grapher.show_cumul(deputies)
+      grapher.show_cumul
     end
   end
 
