@@ -29,7 +29,10 @@ class Grapher
                ])
   end
 
-  def show_cumul(deputies)
+  def show_cumul
+
+    deputies = Deputy.all
+
     cumuls = [
       deputies.all(:nb_cumul => 0),
       deputies.all(:nb_cumul => 1),

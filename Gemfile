@@ -3,9 +3,10 @@ source "http://rubygems.org"
 # Example:
 #   gem "activesupport", ">= 2.3.5"
 
-gem "data_mapper",  "1.2.0"
-gem "nokogiri",     "1.5.0"
-gem "googlecharts", "1.6.8"
+gem "data_mapper",      "1.2.0"
+gem "dm-mysql-adapter", "1.2.0"
+gem "nokogiri",         "1.5.0"
+gem "googlecharts",     "1.6.8"
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
