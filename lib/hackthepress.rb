@@ -9,20 +9,32 @@ require 'data_mapper'
 require 'dm-migrations'
 require 'dm-aggregates'
 
-#DataMapper::Logger.new($stdout, :debug)
-DataMapper.setup(:default, 'mysql://localhost/hackthepress')
-DataMapper.finalize
+require 'hackthepress/deputy'
+require 'hackthepress/parser'
+require 'hackthepress/grapher'
 
-require 'lib/deputy'
-require 'lib/parser'
-require 'lib/grapher'
+class HackThePress
 
-if ARGV[0] == "--parse"
-  DataMapper.auto_migrate!
-  parser = RcParser.new
-  parser.parse_all
+  def initialize(generate = false)
+    #DataMapper::Logger.new($stdout, :debug)
+    DataMapper.setup(:default, 'mysql://localhost/hackthepress')
+    DataMapper.finalize
+    if generate
+      DataMapper.auto_migrate!
+      parser = RcParser.new
+      parser.parse_all
+    end
+  end
+
+  def graph(type)
+
+    grapher = Grapher.new
+
+    case type
+    when "cumul"
+      deputies = Deputy.all
+      grapher.show_cumul(deputies)
+    end
+  end
+
 end
-
-
-grapher = Grapher.new
-grapher.show_cumul(Deputy.all)
