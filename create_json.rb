@@ -7,7 +7,7 @@ require 'open-uri'
 $cache = {}
 
 def api_json(json_url)
-  #unless result = $cache[json_url]
+  unless result = $cache[json_url]
     url = URI.parse(json_url)
     req = Net::HTTP::Get.new(url.path)
     res = Net::HTTP.start(url.host, url.port) {|http|
@@ -15,7 +15,7 @@ def api_json(json_url)
     }
     result =  JSON.parse(res.body)
     $cache[json_url] = result
-  #end
+  end
   return result
 end
 
@@ -66,14 +66,23 @@ groupes_parlementaires = {}
   #end
 
 activities = {
-  :cumul => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  :non => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  :cumul => [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ],
+  :non => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 }
 
 depute_list = api_json("http://www.nosdeputes.fr/deputes/json")
 noncumul = false
 depute_cumul = 0
 depute_non_cumul = 0
+cumuleur = [0, 0, 0, 0, 0, 0, 0, 0]
 depute_list["deputes"].each do |depute_json|
 
   depute = depute_json["depute"]
@@ -85,7 +94,10 @@ depute_list["deputes"].each do |depute_json|
       p depute["api_url"]
       noncumul = true
       depute_non_cumul += 1
+      nb_cumul = 0
     else
+      nb_cumul = depute_api["autres_mandats"].size
+      cumuleur[nb_cumul] += 1
       noncumul = false 
       depute_cumul += 1
     end
@@ -104,7 +116,7 @@ depute_list["deputes"].each do |depute_json|
       if noncumul
         activities[:non][index] += num
       else
-        activities[:cumul][index] += num
+        activities[:cumul][nb_cumul][index] += num
       end
       index += 1
     end
@@ -117,6 +129,13 @@ p depute_non_cumul
 p activities
 p activities[:cumul].map{|cumul| cumul / depute_cumul}
 p activities[:non].map{|cumul| cumul / depute_non_cumul}
+index = 0
+activities[:cumul].each do |cumul|
+  unless cumuleur[index] == 0
+    p cumul.map{|cum| cum / cumuleur[index]}
+  end
+  index += 1
+end
 
 
 depute_list["deputes"].each do |depute_json|
