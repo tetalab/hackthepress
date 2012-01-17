@@ -31,11 +31,11 @@ class Grapher
 
   def show_cumul(deputies)
     cumuls = [
-      deputies.all :nb_cumul => 0,
-      deputies.all :nb_cumul => 1,
-      deputies.all :nb_cumul => 2,
-      deputies.all :nb_cumul => 3,
-      deputies.all :nb_cumul => 4
+      deputies.all(:nb_cumul => 0),
+      deputies.all(:nb_cumul => 1),
+      deputies.all(:nb_cumul => 2),
+      deputies.all(:nb_cumul => 3),
+      deputies.all(:nb_cumul => 4)
     ]
 
     generate_cumul_graph :title => "Semaines de présence",
