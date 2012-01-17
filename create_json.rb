@@ -46,7 +46,7 @@ class RcParser
       depute_api = api_json(depute_json["depute"]["api_url"])["depute"]
       depute = Deputy.new(:slug => depute_api["slug"],
                           :is_cumul => !depute_api["autres_mandats"].kind_of?(String))
-      depute.attributes = parseHtmlInfo(depute)
+      parseHtmlInfo(depute)
       depute.save
       @deputies << depute
     end
@@ -67,33 +67,31 @@ class RcParser
     url = "http://www.nosdeputes.fr/" +  depute.slug
     doc = Nokogiri::HTML(open(url))
     index = 1
-    output = {}
-    doc.css(".barre_activite a").each do |activite|
-      activite["title"].scan(/^(\d+)/)
+    doc.css(".barre_activite img").each do |activite|
+      activite["alt"].scan(/^(\d+)/)
       num = $1.to_i
       case index
       when 1
-        output[:activity_weeks] = num
+        depute.activity_weeks = num
       when 2
-        output[:commission_presence] = num
+        depute.commission_presence = num
       when 3
-        output[:commission_intervention] = num
+        depute.commission_intervention = num
       when 4
-        output[:hemicycle_intervention] = num
+        depute.hemicycle_intervention = num
       when 5
-        output[:written_report] = num
+        depute.written_report = num
       when 6
-        output[:written_law_proposal] = num
+        depute.written_law_proposal = num
       when 7
-        output[:signed_law_proposal] = num
+        depute.signed_law_proposal = num
       when 8
-        output[:written_question] = num
+        depute.written_question = num
       when 9
-        output[:oral_question] = num
+        depute.oral_question = num
       end
       index += 1
     end
-    return output
   end
 
 end
