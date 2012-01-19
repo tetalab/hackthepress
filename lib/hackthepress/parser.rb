@@ -32,6 +32,13 @@ class Parser
       unless depute = Deputy.first(:slug => depute_api["slug"])
         depute = Deputy.new(:slug => depute_api["slug"])
         depute.nb_cumul = depute_api["autres_mandats"].size unless depute_api["autres_mandats"].kind_of?(String)
+
+        unless depute_api["groupes_parlementaires"].kind_of? String
+          depute_api["groupes_parlementaires"].each do |group_api|
+            depute.groups << Group.first_or_create(:label => group_api["responsabilite"]["organisme"])
+          end
+        end
+
         parse_html_info(depute)
         depute.save
       end

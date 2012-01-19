@@ -2,6 +2,61 @@
 
 class Grapher
 
+  def social_gexf
+    social_graph = {:nodes => [], :edges => []}
+
+    index = {:node => 0, :edge => 0}
+
+    Deputy.all.each do |deputy|
+      puts "analysing #{deputy.id} #{deputy.slug} with #{deputy.groups.size} groups"
+      social_graph[:nodes] << {:id => deputy.id.to_f, :label => deputy.slug}
+      deputy.groups.each do |group|
+        puts "max edges #{group.deputies.size}"
+        group.deputies.reject{|other_deputy| deputy == other_deputy}.each do |other_deputy|
+          existing_edges = social_graph[:edges].select{|edge| edge[:source] == deputy.id && edge[:target] == other_deputy.id}
+          unless existing_edges.empty?
+            existing_edges.each{|edge| edge[:weight] += 1.0}
+          else
+            social_graph[:edges] << {:id => index[:edge], :source => deputy.id.to_f, :target => other_deputy.id.to_f, :weight => 1.0}
+            index[:edge] += 1
+          end
+        end
+      end
+    end
+
+    Deputy.all.each do |deputy|
+      deputy.groups.each do |group|      end
+      index[:node] += 1
+    end
+
+    return generate_gexf(social_graph)
+  end
+
+  def generate_gexf(received_data)
+    xml = Builder::XmlMarkup.new(:ident => 1)
+
+    xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
+    xml.gexf(:xmlns => "http://www.gexf.net/1.2draft", :version => "1.2") do
+      xml.meta(:lastmodifieddate => Time.now.strftime("%Y-%m-%d")) do
+        xml.creator "Tetalab"
+        xml.description "hackthepress"
+      end
+      xml.graph(:mode => "static", :defaultedgetype => "directed") do
+        xml.nodes do
+          received_data[:nodes].each do |node|
+            xml.node :id => node[:id], :label => node[:label]
+          end
+        end
+        xml.edges do
+          received_data[:edges].each do |edge|
+            xml.edge :id => edge[:id], :source => edge[:source], :target => edge[:target], :weight => edge[:weight]
+          end
+        end
+      end
+    end
+    return xml.target!
+  end
+
   def generate_cumul_graph(opts = {})
     title = opts[:title]
     filename = opts[:filename]

@@ -17,7 +17,18 @@ class Deputy
 
   property :nb_cumul, Integer, :default => 0
 
+  has n, :groups, :through => Resource
+
   def is_cumul
     return @nb_cumul > 0
   end
+end
+
+class Group
+  include DataMapper::Resource
+
+  property :id, Serial
+  property :label, String
+
+  has n, :deputies, :through => Resource
 end
