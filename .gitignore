@@ -2,3 +2,4 @@ img
 Gemfile.lock
 Guardfile
 *.gexf
+circonscription_geoloc.csv
