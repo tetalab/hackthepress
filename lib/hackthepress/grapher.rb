@@ -2,7 +2,44 @@
 
 class Grapher
 
-  def social_gexf
+  # Compute a gexf containing a hierarchy with:
+  #   - parlementary group 1
+  #     - deputy 1
+  #     - deputy 2
+  #   - parlementary group 2
+  #     - deputy 1
+  #     - deputy 3
+  # Edges will represent
+  #   - between groups: the number of commun deputy in each group
+  #   - between deputies: ???
+  def deputy_group_hierarchy
+    social_graph = {:nodes => [], :edges => []}
+
+    index = {:node => 0, :edge => 0}
+
+    # Include all group nodes
+    Group.all.each do |group|
+      social_graph[:nodes] << {:id => "group_#{group.id}", :label => group.label}
+    end
+
+    # Include all deputy nodes
+    Deputy.all.each do |deputy|
+      deputy_node = {:id => "deputy_#{deputy.id}", :label => deputy.slug}
+      if groups = deputy.groups
+        deputy_node[:parents] = []
+        groups.each do |group|
+          deputy_node[:parents] << "group_#{group.id}"
+        end
+      end
+      social_graph[:nodes] << deputy_node
+    end
+
+    return generate_gexf(social_graph)
+  end
+
+  # Compute a graph with edge between each deputy
+  # Edge wight will depend on the number of time 2 deputies are in the same parlementary group
+  def deputy_weight_by_group_gexf
     social_graph = {:nodes => [], :edges => []}
 
     index = {:node => 0, :edge => 0}
@@ -24,11 +61,6 @@ class Grapher
       end
     end
 
-    Deputy.all.each do |deputy|
-      deputy.groups.each do |group|      end
-      index[:node] += 1
-    end
-
     return generate_gexf(social_graph)
   end
 
@@ -42,12 +74,19 @@ class Grapher
         xml.description "hackthepress"
       end
       xml.graph(:mode => "static", :defaultedgetype => "directed") do
-        xml.nodes do
+        xml.nodes{:count => received_data[:nodes].size} do
           received_data[:nodes].each do |node|
             xml.node :id => node[:id], :label => node[:label]
+            if node[:parents]
+              xml.parents do
+                node[:parents].each do |parent|
+                  xml.parent :for => parent
+                end
+              end
+            end
           end
         end
-        xml.edges do
+        xml.edges{:count => received_data[:edges].size} do
           received_data[:edges].each do |edge|
             xml.edge :id => edge[:id], :source => edge[:source], :target => edge[:target], :weight => edge[:weight]
           end
