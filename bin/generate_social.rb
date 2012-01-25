@@ -5,6 +5,6 @@ DataMapper.setup(:default, 'mysql://localhost/hackthepress')
 DataMapper.finalize
 
 grapher = Grapher.new
-File.open("social.gexf", "w") do |f|
-  f.write grapher.social_gexf
+File.open(File.join(File.dirname(__FILE__), '..', 'data', 'deputy_group_hierarchy.gexf'), "w") do |f|
+  f.write grapher.deputy_group_hierarchy
 end

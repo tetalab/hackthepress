@@ -19,20 +19,44 @@ class Grapher
 
     # Include all group nodes
     Group.all.each do |group|
+      puts "Analysing group: #{group.label}"
       social_graph[:nodes] << {:id => "group_#{group.id}", :label => group.label}
+      group.deputies.each do |deputy|
+        if deputy_groups = deputy.groups
+          deputy_groups.each do |other_group|
+            existing_edges = social_graph[:edges].select{|edge| edge[:source] == "group_#{group.id}" && edge[:target] == "group_#{other_group.id}"}
+            unless existing_edges.empty?
+              existing_edges.each{|edge| edge[:weight] += 1.0}
+            else
+              social_graph[:edges] << {:id => index[:edge], :source => "group_#{group.id}", :target => "group_#{other_group.id}", :weight => 1.0}
+              index[:edge] += 1
+            end
+          end
+        end
+      end
     end
 
     # Include all deputy nodes
-    Deputy.all.each do |deputy|
-      deputy_node = {:id => "deputy_#{deputy.id}", :label => deputy.slug}
-      if groups = deputy.groups
-        deputy_node[:parents] = []
-        groups.each do |group|
-          deputy_node[:parents] << "group_#{group.id}"
-        end
-      end
-      social_graph[:nodes] << deputy_node
-    end
+#    Deputy.all.each do |deputy|
+#      p "Analysing deputy: #{deputy.slug}"
+#      deputy_node = {:id => "deputy_#{deputy.id}", :label => deputy.slug}
+#      if groups = deputy.groups
+#        deputy_node[:parents] = []
+#        groups.each do |group|
+#          deputy_node[:parents] << "group_#{group.id}"
+#          group.deputies.reject{|d| d.id == deputy.id}.each do |other_deputy|
+#            social_graph[:edges] << {
+#              :id => index[:edge],
+#              :source => "deputy_#{deputy.id}",
+#              :target => "deputy_#{other_deputy.id}",
+#              :weight => 1.0
+#            }
+#            index[:edge] += 1
+#          end
+#        end
+#      end
+#      social_graph[:nodes] << deputy_node
+#    end
 
     return generate_gexf(social_graph)
   end
@@ -74,7 +98,7 @@ class Grapher
         xml.description "hackthepress"
       end
       xml.graph(:mode => "static", :defaultedgetype => "directed") do
-        xml.nodes{:count => received_data[:nodes].size} do
+        xml.nodes(:count => received_data[:nodes].size) do
           received_data[:nodes].each do |node|
             xml.node :id => node[:id], :label => node[:label]
             if node[:parents]
@@ -86,7 +110,7 @@ class Grapher
             end
           end
         end
-        xml.edges{:count => received_data[:edges].size} do
+        xml.edges(:count => received_data[:edges].size) do
           received_data[:edges].each do |edge|
             xml.edge :id => edge[:id], :source => edge[:source], :target => edge[:target], :weight => edge[:weight]
           end
